@@ -1,0 +1,106 @@
+/* Medication Checker - simple styles */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: rgb(240, 245, 244);
+  color: rgb(34, 34, 34);
+}
+
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header */
+
+.header {
+  text-align: center;
+  background-color: rgb(27, 75, 67);
+  color: white;
+  padding: 30px 20px;
+  border-radius: 8px;
+}
+
+.header h1 {
+  margin: 0 0 10px 0;
+}
+
+.header .info {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Form */
+
+#medicationform {
+  background-color: white;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+#medicationform label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+#medicine {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+#button {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  color: white;
+  background-color: rgb(27, 75, 67);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#button:hover {
+  background-color: rgb(16, 50, 40);
+}
+
+/* Results */
+
+#results {
+  margin-top: 20px;
+}
+
+/* Footer */
+
+.footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: rgb(85, 85, 85);
+}
+
+/* Responsive - for small screens */
+
+@media (min-width: 600px) {
+  #medicationform {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+  }
+
+  #medicationform label {
+    flex-basis: 100%;
+  }
+
+  #button {
+    width: auto;
+  }
+}
