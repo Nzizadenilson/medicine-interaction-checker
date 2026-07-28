@@ -1,5 +1,3 @@
-/* Medication Checker - simple styles */
-
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -12,8 +10,6 @@ body {
   margin: 0 auto;
   padding: 20px;
 }
-
-/* Header */
 
 .header {
   text-align: center;
@@ -31,8 +27,6 @@ body {
   margin: 0;
   font-size: 14px;
 }
-
-/* Form */
 
 #medicationform {
   background-color: white;
@@ -72,13 +66,36 @@ body {
   background-color: rgb(16, 50, 40);
 }
 
-/* Results */
-
 #results {
   margin-top: 20px;
 }
-
-/* Footer */
+.medicine-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid rgb(27, 75, 67);
+}
+.medicine-card h2 {
+  margin-top: 0;
+  color: rgb(27, 75, 67);
+}
+ 
+.medicine-card h3 {
+  margin-bottom: 4px;
+  color: rgb(27, 75, 67);
+  font-size: 15px;
+}
+ 
+.medicine-card p {
+  margin-top: 0;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+ 
+.medicine-card p:last-child {
+  margin-bottom: 0;
+}
 
 .footer {
   text-align: center;
@@ -86,8 +103,6 @@ body {
   font-size: 14px;
   color: rgb(85, 85, 85);
 }
-
-/* Responsive - for small screens */
 
 @media (min-width: 600px) {
   #medicationform {
