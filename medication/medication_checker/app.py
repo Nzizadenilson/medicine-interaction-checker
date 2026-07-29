@@ -11,22 +11,22 @@ class MedicationHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-type', 'text/html')
             self.end_headers()
-            FILE = open("index.html", "r")
-            self.wfile.write(FILE.read().encode())
+            with open("index.html", "r") as file:
+                self.wfile.write(file.read().encode())
         #serving the styles.css
         elif self.path == '/styles.css':
             self.send_response(200)
             self.send_header('Content-type', 'text/css')
             self.end_headers()
-            FILE = open("styles.css", "r")
-            self.wfile.write(FILE.read().encode())
+            with open("styles.css", "r") as file:
+                self.wfile.write(file.read().encode())
         #serving the script.js
         elif self.path == '/medication_js/script.js':
             self.send_response(200)
             self.send_header('Content-type', 'application/javascript')
             self.end_headers()
-            FILE = open("medication_js/script.js", "r")
-            self.wfile.write(FILE.read().encode())
+            with open("medication_js/script.js", "r") as file:
+                self.wfile.write(file.read().encode())
         #search for the medicine
         elif self.path.startswith('/medicine'):
             query = urllib.parse.urlparse(self.path).query
@@ -44,7 +44,7 @@ class MedicationHandler(BaseHTTPRequestHandler):
                 try:
                     drug = data['results'][0]
                     medicine_info = {
-                        "name": drug.get("openfda", {}).get("brand_name", ["N/A"])[0],
+                        "name": drug.get("openfda", {}).get("generic_name", ["N/A"])[0],
                         "description": drug.get("description", ["N/A"])[0],
                         "warnings": drug.get("warnings", ["No warnings found"])[0],
                         "dosage": drug.get("dosage_and_administration", ["No dosage information found"])[0],
