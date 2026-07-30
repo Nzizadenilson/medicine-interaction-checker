@@ -51,7 +51,7 @@ class MedicationHandler(BaseHTTPRequestHandler):
                         "instructions": drug.get("instructions_for_use", ["No instructions available"])[0]
                     }
                 except (KeyError, IndexError):
-                    medicine_info = {"error": "Medicine not found or API limit reached."}
+                    medicine_info = {"error": "Medicine not found or check the correct spelling."}
 
                 self.send_response(200)
                 self.send_header('Content-type', 'application/json')
