@@ -105,7 +105,9 @@ The API provides:
 - Dosage and administration
 - Instructions for use
 
-No API key is required because OpenFDA provides public access to this endpoint.
+Authentication:
+OpenFDA does not require an API key for the endpoints used in this project. 
+Therefore, no API credentials are needed.
 
 ---
 
