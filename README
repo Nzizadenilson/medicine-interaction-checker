@@ -114,7 +114,7 @@ No API key is required because OpenFDA provides public access to this endpoint.
 ## Clone the repository
 
 ```bash
-git clone https://github.com/<your-github-username>/medicine-interaction-checker.git
+git clone https://github.com/Nzizadenilson/medicine-interaction-checker.git
 ```
 
 ## Navigate into the project directory
@@ -154,7 +154,7 @@ The following steps were completed:
 1. Cloned the GitHub repository.
 
 ```bash
-git clone https://github.com/<your-github-username>/medicine-interaction-checker.git
+git clone https://github.com/Nzizadenilson/medicine-interaction-checker.git
 ```
 
 2. Navigated into the project directory.
@@ -271,10 +271,8 @@ https://www.nzizadenilson.tech
 
 **2-Minute Demonstration Video**
 
-Add your video link here:
-
 ```
-https://
+https://drive.google.com/file/d/1GphpRHtkfTw46OU0iZyqwXU6AoZwzfqV/view?usp=sharing
 ```
 
 ---
