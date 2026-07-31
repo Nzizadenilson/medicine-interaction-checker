@@ -1,0 +1,313 @@
+# Medication Checker
+
+## Overview
+
+Medication Checker is a web application that allows users to search for medicine information using the OpenFDA Drug Label API. Users enter the generic name of a medicine and retrieve reliable information such as its description, warnings, dosage, and instructions for use. The application also allows users to filter the results and display only the information they are interested in, such as warnings, dosage, description, or instructions.
+
+The application was built using Python, HTML, CSS, and JavaScript and is deployed on two web servers behind an HAProxy load balancer to improve availability and reliability.
+
+---
+
+# Problem Statement
+
+People often need quick access to reliable medicine information before taking medication. Searching through multiple websites can be time-consuming and may lead to inaccurate or incomplete information.
+
+Medication Checker provides a simple and user-friendly solution by retrieving official medicine information directly from the OpenFDA Drug Label API and allowing users to display only the information they need.
+
+---
+
+# Features
+
+- Search medicines using their generic name
+- View medicine description
+- View medicine warnings
+- View dosage information
+- View instructions for use
+- Filter results to display:
+  - All information
+  - Description only
+  - Warnings only
+  - Dosage only
+  - Instructions only
+- Handles invalid medicine names gracefully
+- Handles OpenFDA API connection errors
+- Responsive user interface
+- Deployed on two web servers behind a HAProxy load balancer
+
+---
+
+# Technologies Used
+
+- Python 3
+- HTML5
+- CSS3
+- JavaScript
+- Python HTTP Server (`http.server`)
+- OpenFDA Drug Label API
+- Nginx
+- HAProxy
+- Git
+- GitHub
+
+---
+
+# Project Structure
+
+```
+medicine-interaction-checker/
+│
+└── medication/
+    │
+    └── medication_checker/
+        │
+        ├── app.py
+        ├── index.html
+        ├── styles.css
+        ├── .gitignore
+        └── medication_js/
+            └── script.js
+```
+
+---
+
+# How the Application Works
+
+1. The user enters the generic name of a medicine.
+2. The user selects the type of information they want to display.
+3. JavaScript sends a request to the Python server.
+4. The Python server sends a request to the OpenFDA Drug Label API.
+5. The API returns the medicine information.
+6. The Python server formats the response into JSON.
+7. JavaScript filters the returned data based on the user's selection.
+8. The selected information is displayed on the webpage.
+
+---
+
+# External API
+
+This application uses the **OpenFDA Drug Label API**.
+
+API Documentation:
+
+https://open.fda.gov/apis/drug/label/
+
+Example endpoint:
+
+```
+https://api.fda.gov/drug/label.json
+```
+
+The API provides:
+
+- Generic medicine names
+- Medicine descriptions
+- Warnings
+- Dosage and administration
+- Instructions for use
+
+No API key is required because OpenFDA provides public access to this endpoint.
+
+---
+
+# Running the Application Locally
+
+## Clone the repository
+
+```bash
+git clone https://github.com/<your-github-username>/medicine-interaction-checker.git
+```
+
+## Navigate into the project directory
+
+```bash
+cd medicine-interaction-checker/medication/medication_checker
+```
+
+## Install dependencies
+
+```bash
+pip install requests
+```
+
+## Run the application
+
+```bash
+python3 app.py
+```
+
+## Open in your browser
+
+```
+http://localhost:8000
+```
+
+---
+
+# Deployment
+
+The application was deployed on three Ubuntu servers.
+
+## Web01
+
+The following steps were completed:
+
+1. Cloned the GitHub repository.
+
+```bash
+git clone https://github.com/<your-github-username>/medicine-interaction-checker.git
+```
+
+2. Navigated into the project directory.
+
+```bash
+cd medicine-interaction-checker/medication/medication_checker
+```
+
+3. Installed the required dependency.
+
+```bash
+pip install requests
+```
+
+4. Started the application as a background process.
+
+```bash
+nohup python3 app.py > app.log 2>&1 &
+```
+
+5. Configured Nginx as a reverse proxy to forward requests to the Python application running on port 8000.
+
+Example configuration:
+
+```nginx
+location / {
+    proxy_pass http://127.0.0.1:8000;
+
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+}
+```
+
+An additional response header was added:
+
+```nginx
+add_header X-Served-By $hostname;
+```
+
+This makes it possible to identify which backend server handled a request.
+
+---
+
+## Web02
+
+The same deployment process used for Web01 was repeated:
+
+- Clone the repository
+- Install dependencies
+- Run the application using `nohup`
+- Configure Nginx as a reverse proxy
+
+---
+
+## Load Balancer (Lb01)
+
+HAProxy was configured to distribute requests between both web servers using the **Round Robin** load balancing algorithm.
+
+Example backend configuration:
+
+```haproxy
+backend web_back
+    balance roundrobin
+
+    server web-01 100.26.186.180:80 check
+    server web-02 18.212.74.71:80 check
+```
+
+Incoming requests are automatically forwarded to one of the two backend servers, improving reliability and availability.
+
+---
+
+# Deployment Verification
+
+The deployment was verified by:
+
+- Testing the application locally.
+- Accessing both web servers individually.
+- Accessing the application through the HAProxy load balancer.
+- Searching for multiple medicines to verify correct API responses.
+- Confirming that requests were forwarded correctly using the `X-Served-By` response header.
+- Testing the filtering feature to ensure only the selected information is displayed.
+
+---
+
+# Challenges Encountered
+
+During the development and deployment of this project, I encountered several challenges:
+
+- Understanding the structure of the OpenFDA API responses.
+- Some medicines could not be found because they are not available in the OpenFDA database. To address this, I implemented error handling to inform users when no information was available.
+- Handling situations where the OpenFDA API could not be reached by displaying an appropriate error message instead of crashing the application.
+- Running the application in the background so that it continued running after disconnecting from the server using `nohup`.
+- Implementing client-side filtering so users could choose to display only specific medicine information such as warnings, dosage, description, or instructions.
+
+These challenges were resolved through debugging, testing each component individually, and validating the deployment before integrating the complete system.
+
+---
+
+# GitHub Repository
+
+https://github.com/Nzizadenilson/medicine-interaction-checker
+
+---
+
+# Live Application
+
+https://www.nzizadenilson.tech
+
+---
+
+# Demonstration Video
+
+**2-Minute Demonstration Video**
+
+Add your video link here:
+
+```
+https://
+```
+
+---
+
+# Future Improvements
+
+- Check interactions between multiple medicines.
+- Allow users to compare two or more medicines.
+- Add search suggestions and autocomplete.
+- Include medicine images where available.
+- Improve the user interface and accessibility.
+- Cache frequently searched medicines to improve performance.
+- Expand filtering options to support multiple selections simultaneously.
+
+---
+
+# Credits
+
+This project uses the following resources:
+
+- OpenFDA Drug Label API
+- Python Requests Library
+- Python HTTP Server
+- Nginx
+- HAProxy
+- GitHub
+
+Special thanks to the OpenFDA team for providing free public access to medicine label information.
+
+---
+
+# Author
+
+**Nziza Denilson**
+
+African Leadership University (ALU)
