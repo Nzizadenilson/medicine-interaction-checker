@@ -38,8 +38,18 @@ class MedicationHandler(BaseHTTPRequestHandler):
                     f"?search=openfda.generic_name:{medicine}"
                     "&limit=1"
                 )
-                response = requests.get(url)
-                data = response.json()
+                try:
+                    response = requests.get(url, timeout=5)
+                    response.raise_for_status()
+                    data = response.json()
+                except requests.RequestException as error:
+                    print(f"Error fetching API data: {error}")
+                    self.send_response(503)
+                    self.send_header('Content-type', 'application/json')
+                    self.end_headers()
+                    self.wfile.write(json.dumps({"error": "Failed to fetch medicine information."}).encode())
+                    return
+
                 #Error handling if the medicine is not found
                 try:
                     drug = data['results'][0]
